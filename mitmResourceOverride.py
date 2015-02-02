@@ -30,13 +30,14 @@ def getOverrideData():
     return urlData
 
 
-def tryToReadFile(filePath):
+def tryToReadFile(filePath, urlData):
     contents = ""
     try:
         fileHandle = open(filePath)
         contents = fileHandle.read()
     except IOError:
-        contents = "Could not open " + filePath
+        contents = "mitmProxy - Resource Override: Could not open " + filePath + \
+            " Came from rule: " + urlData[0] + " , " + urlData[1]
 
     return contents
 
@@ -53,10 +54,12 @@ def response(context, flow):
         for urlData in overrideData:
             urlMatches, freeVars = match(urlData[0], url)
             if urlMatches:
-                newResponseContent = tryToReadFile(urlData[1])
+                filePath = matchReplace(urlData[0], urlData[1], url)
+                newResponseContent = tryToReadFile(filePath, urlData)
                 break;
 
         if urlMatches:
+            flow.response.code = 200
             flow.response.content = newResponseContent
 
 
