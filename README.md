@@ -46,6 +46,10 @@ OR TL;DR, Mac and Linux: Install pip and then run pip install mitmproxy
 
 You might need to install some other dependencies if it fails (Read the error logs).
 
+I needed to run:
+
+    sudo apt-get install python-dev libxml2-dev libxslt-dev zlib1g-dev libffi-dev libssl-dev
+
 **mitmproxy for Windows:** One way I was able to use mitmproxy on windows was to install it using Ubuntu Server in a virtual machine. Virtual Box can forward ports from the guest VM so that you can connect to the proxy using that port. See the bottom of this page to see how to port forward on Virtual Box: https://github.com/CenturyLinkLabs/panamax-ui/wiki/How-To%3A-Port-Forwarding-on-VirtualBox
 
 You can also set up shared folders with Virtual Box (after you install guest additions) so you can access your host machine's files. Go to the virtual machine's settings and look for "Shared Folders"
